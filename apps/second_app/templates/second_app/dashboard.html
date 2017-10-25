@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="header">
+    <h1>Success! Welcome, {{request.session.alias_name}}</h1>
+    <h2>Here is a list of your friends:</h2>
+    <table border="1px">
+            <tr>
+                <th>Alias</th>
+                <th>Action</th>
+            </tr>
+    {% for user in other_users %}
+    <tr>
+        <td>{{user.alias_name}}</td>
+        <td><a href='/second_app/show/{{user.id}}'>View profile</a> <a href='/second_app/delete/{{user.id}}'>Remove as Friend</a></td>
+    </tr>
+    {%endfor%}
+    </table>
+    <h2>Other users not on your friend's list:</h2>
+    <table border="1px">
+            <tr>
+                <th>Alias</th>
+                <th>Action</th>
+            </tr>
+    {% for person in other_users %}
+    <tr>
+        <td><a href="/second_app/show/{{person.id}}">{{person.alias_name}}</td>
+        <td>
+        <form action="/second_app/add/{{person.id}}">
+            <input type="submit" value="Add as a Friend">
+        </form>
+        </td>
+    </tr>
+    {%endfor%}
+    </table>
+    <a href="/logout">Logout here</a>
+    </div>
+</body>
+</html>
